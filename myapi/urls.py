@@ -15,14 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from django.http import JsonResponse
-from greeting.views import GreetingView
-
-def home(request):
-    return JsonResponse({"message": "Welcome to the API. Use /api/greet/ to POST data."})
+from django.urls import path
+from greeting.views import GreetingView, home_view  # ✅ FIXED IMPORT
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/greet/', GreetingView.as_view()),  # This is your API endpoint
+    path('api/greet/', GreetingView.as_view()),  # ✅ POST API endpoint
+    path('', home_view),                         # ✅ homepage
 ]
