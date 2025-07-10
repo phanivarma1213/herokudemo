@@ -133,3 +133,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ALLOWED_HOSTS = ['*']
 
 DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
+
+
+# settings.py
+
+# Install whitenoise first: pip install whitenoise
+# And add it to your requirements.txt
+
