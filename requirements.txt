@@ -3,3 +3,4 @@ djangorestframework==3.14.0
 gunicorn
 whitenoise
 psycopg2-binary
+dj-database-url==1.2.0
