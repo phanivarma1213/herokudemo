@@ -11,4 +11,4 @@ class GreetingView(APIView):
         return Response({"message": msg})
 
 def home_view(request):
-    return HttpResponse("Welcome to the Home Page!")
+    return JsonResponse({"message": "Welcome to the API. Use /api/greet/ to POST data."})
