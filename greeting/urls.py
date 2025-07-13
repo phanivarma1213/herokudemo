@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import GreetingView
+from .views import sync_from_salesforce
 
 urlpatterns = [
-    path('greet/', GreetingView.as_view()),
+    path('sf_sync/', sync_from_salesforce),
 ]

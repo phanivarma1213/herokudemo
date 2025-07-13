@@ -14,12 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
-from greeting.views import GreetingView, home_view  # ✅ FIXED IMPORT
+# urls.py
+from django.urls import path,include
+from greeting.views import sync_from_salesforce
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/greet/', GreetingView.as_view()),  # ✅ POST API endpoint
-    path('', home_view),                         # ✅ homepage
+    path('api/', include('greeting.urls')),
+
 ]
