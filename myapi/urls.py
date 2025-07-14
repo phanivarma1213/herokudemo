@@ -17,8 +17,11 @@ Including another URLconf
 # urls.py
 from django.urls import path,include
 from greeting.views import sync_from_salesforce
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('api/', include('greeting.urls')),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+
 
 ]
