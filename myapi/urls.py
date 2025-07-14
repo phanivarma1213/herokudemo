@@ -15,13 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # urls.py
-from django.urls import path,include
-from greeting.views import sync_from_salesforce
+from django.contrib import admin
+from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
+    path('admin/', admin.site.urls),  # must be present
     path('api/', include('greeting.urls')),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
-
-
+    path('api-token-auth/', obtain_auth_token),
 ]

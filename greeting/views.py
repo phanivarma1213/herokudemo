@@ -15,7 +15,6 @@ def sync_from_salesforce(request):
         data = serializer.validated_data
 
         try:
-            # Use environment variables if available (Heroku-friendly)
             conn = psycopg2.connect(
                 host=os.environ.get('DB_HOST', 'c5cnr847jq0fj3.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com'),
                 database=os.environ.get('DB_NAME', 'dfqli4s83tjnha'),
@@ -25,7 +24,8 @@ def sync_from_salesforce(request):
             )
             cursor = conn.cursor()
             query = """
-                INSERT INTO sf_doc_sync (doc_ID, doc_endpoint, inserted_by_user, SF_doc_parent_ID, SF_doc_parent_object_ID)
+                INSERT INTO sfdc_doc.sf_doc_sync 
+                ("doc_ID", "doc_endpoint", "inserted_by_user", "SF_doc_parent_ID", "SF_doc_parent_object_ID")
                 VALUES (%s, %s, %s, %s, %s)
             """
             cursor.execute(query, (
@@ -35,13 +35,14 @@ def sync_from_salesforce(request):
                 data['SF_doc_parent_ID'],
                 data['SF_doc_parent_object_ID']
             ))
+
             conn.commit()
             cursor.close()
             conn.close()
 
-            return Response({"message": "Data posted successfully"}, status=201)
+            return Response({"message": "Data inserted successfully"}, status=201)
 
         except Exception as e:
-            return Response({"error": str(e)}, status=500)
+            return Response({"error": f"Database error: {str(e)}"}, status=500)
 
     return Response(serializer.errors, status=400)
